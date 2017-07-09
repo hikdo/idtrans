@@ -1,0 +1,9 @@
+// $Id$
+// vim:ft=javascript
+
+ARG_ENABLE("idtrans", "enable idtrans support", "no");
+
+if (PHP_idtrans != "no") {
+	EXTENSION("idtrans", "idtrans.c");
+}
+
