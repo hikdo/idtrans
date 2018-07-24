@@ -103,7 +103,7 @@ PHP_MINFO_FUNCTION(idtrans)
 PHP_FUNCTION(idtrans_encode)
 {	
     uint32_t v;
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &v TSRMLS_CC) == FAILURE) {
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "l", &v) == FAILURE) {
         RETURN_NULL();
     }	
     RETURN_LONG(((v * IDTRANS_G(optimus).prime) & IDTRANS_G(optimus).max) ^ IDTRANS_G(optimus).random);
@@ -114,7 +114,7 @@ PHP_FUNCTION(idtrans_encode)
 PHP_FUNCTION(idtrans_decode)
 {	
     uint32_t v;
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &v TSRMLS_CC) == FAILURE) {
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "l", &v) == FAILURE) {
         RETURN_NULL();
     }	
     RETURN_LONG(((v ^ IDTRANS_G(optimus).random) * IDTRANS_G(optimus).inverse) & IDTRANS_G(optimus).max);
