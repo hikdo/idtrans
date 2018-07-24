@@ -1,4 +1,5 @@
 ## idtrans
+[![Build Status](https://travis-ci.org/hikdo/idtrans.svg?branch=master)](https://travis-ci.org/hikdo/idtrans)
 
 An implementation of Knuth's integer hash , build in php extension.
 
