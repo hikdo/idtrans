@@ -102,7 +102,7 @@ PHP_MINFO_FUNCTION(idtrans)
 /* {{{ proto int idtrans_encode(int) */
 PHP_FUNCTION(idtrans_encode)
 {	
-    uint32_t v;
+    int64_t v;
     if (zend_parse_parameters(ZEND_NUM_ARGS(), "l", &v) == FAILURE) {
         RETURN_NULL();
     }	
@@ -113,7 +113,7 @@ PHP_FUNCTION(idtrans_encode)
 /* {{{ proto int idtrans_decode(int) */
 PHP_FUNCTION(idtrans_decode)
 {	
-    uint32_t v;
+    int64_t v;
     if (zend_parse_parameters(ZEND_NUM_ARGS(), "l", &v) == FAILURE) {
         RETURN_NULL();
     }	
