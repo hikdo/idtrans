@@ -29,6 +29,12 @@
 
 ZEND_DECLARE_MODULE_GLOBALS(idtrans)
 
+/* {{{ DL support */
+#ifdef COMPILE_DL_IDTRANS
+ZEND_GET_MODULE(idtrans)
+#endif
+/* }}} */
+
 /* {{{ idtrans_functions[] */
 zend_function_entry idtrans_functions[] = {
     PHP_FE(idtrans_encode, NULL)
@@ -39,9 +45,7 @@ zend_function_entry idtrans_functions[] = {
 
 /* {{{ idtrans_module_entry */
 zend_module_entry idtrans_module_entry = {
-#if ZEND_MODULE_API_NO >= 20010901
     STANDARD_MODULE_HEADER,
-#endif
     "idtrans",
     idtrans_functions,
     PHP_MINIT(idtrans),
@@ -49,17 +53,13 @@ zend_module_entry idtrans_module_entry = {
     NULL,
     NULL,
     PHP_MINFO(idtrans),
-#if ZEND_MODULE_API_NO >= 20010901
     PHP_IDTRANS_VERSION,
-#endif
-    STANDARD_MODULE_PROPERTIES
+    PHP_MODULE_GLOBALS(idtrans),
+    NULL,
+    NULL,
+    NULL,
+    STANDARD_MODULE_PROPERTIES_EX
 };
-/* }}} */
-
-/* {{{ DL support */
-#ifdef COMPILE_DL_IDTRANS
-ZEND_GET_MODULE(idtrans)
-#endif
 /* }}} */
 
 /* {{{ php_idtrans_init_globals */
@@ -103,8 +103,7 @@ PHP_MINFO_FUNCTION(idtrans)
 PHP_FUNCTION(idtrans_encode)
 {	
     uint32_t v;
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &v TSRMLS_CC) == FAILURE)
-    {
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &v TSRMLS_CC) == FAILURE) {
         RETURN_NULL();
     }	
     RETURN_LONG(((v * IDTRANS_G(optimus).prime) & IDTRANS_G(optimus).max) ^ IDTRANS_G(optimus).random);
@@ -115,8 +114,7 @@ PHP_FUNCTION(idtrans_encode)
 PHP_FUNCTION(idtrans_decode)
 {	
     uint32_t v;
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &v TSRMLS_CC) == FAILURE)
-    {
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &v TSRMLS_CC) == FAILURE) {
         RETURN_NULL();
     }	
     RETURN_LONG(((v ^ IDTRANS_G(optimus).random) * IDTRANS_G(optimus).inverse) & IDTRANS_G(optimus).max);

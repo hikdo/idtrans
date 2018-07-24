@@ -1,9 +1,21 @@
-# idtrans
+## idtrans
 
 An implementation of Knuth's integer hash , build in php extension.
 
-### php
+### Install
 ```
-php7 
+$ /path/to/phpize
+$ ./configure --with-php-config=/path/to/php-config
+$ make && make install
+```
 
+### Ini
+```
+extension = idtrans.so
+```
+
+### Functions
+```
+1. idtrans_encode($id)
+2. idtrans_decode($id)
 ```
